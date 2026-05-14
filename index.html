@@ -9,7 +9,7 @@
 
 <title>دكان | DOKAN</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -18,91 +18,145 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Cairo',sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
-background:#050816;
+background:#f4f7fb;
+color:#111827;
 overflow-x:hidden;
-color:white;
 transition:.4s;
 }
 
-body.light{
-background:#f5f5f5;
-color:#111;
+body.dark{
+background:#070b17;
+color:white;
 }
 
-::-webkit-scrollbar{
-width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-background:#00d0ff;
-border-radius:20px;
-}
+/* INTRO */
 
 #intro{
 position:fixed;
 inset:0;
-background:white;
+background:black;
+z-index:999999;
 display:flex;
 justify-content:center;
 align-items:center;
-z-index:999999;
+overflow:hidden;
 }
 
 #intro video{
-width:250px;
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-.navbar{
+/* SIDEBAR */
+
+.sidebar{
 position:fixed;
+right:0;
 top:0;
-width:100%;
-padding:18px 5%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-backdrop-filter:blur(20px);
-background:rgba(0,0,0,.35);
-z-index:999;
+width:280px;
+height:100vh;
+background:rgba(255,255,255,.8);
+backdrop-filter:blur(25px);
+padding:25px;
+overflow:auto;
+z-index:1000;
+border-left:1px solid rgba(0,0,0,.08);
+transition:.4s;
+}
+
+body.dark .sidebar{
+background:rgba(12,15,28,.9);
+border-color:rgba(255,255,255,.08);
 }
 
 .logo{
 display:flex;
 align-items:center;
-gap:12px;
+gap:10px;
+margin-bottom:35px;
 }
 
 .logo img{
-width:60px;
-height:60px;
-object-fit:contain;
+width:55px;
+height:55px;
 }
 
 .logo h1{
-font-size:32px;
+font-size:34px;
 font-weight:900;
-background:linear-gradient(45deg,#00d0ff,#7c3aed);
+background:linear-gradient(45deg,#00bfff,#7c3aed);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-.toggle{
-width:55px;
-height:55px;
-border:none;
-border-radius:50%;
-background:linear-gradient(45deg,#00d0ff,#7c3aed);
-font-size:22px;
-cursor:pointer;
+.side-title{
+font-size:18px;
+margin-bottom:15px;
+font-weight:800;
+opacity:.7;
+}
+
+.side-links{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.side-links a{
+padding:15px;
+border-radius:18px;
+text-decoration:none;
+background:white;
+color:#111;
+font-weight:700;
+transition:.3s;
+box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+body.dark .side-links a{
+background:#111827;
 color:white;
 }
 
+.side-links a:hover{
+transform:translateX(-5px);
+background:linear-gradient(45deg,#00bfff,#7c3aed);
+color:white;
+}
+
+.toggle{
+margin-top:25px;
+width:100%;
+height:58px;
+border:none;
+border-radius:18px;
+background:linear-gradient(45deg,#00bfff,#7c3aed);
+color:white;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* MAIN */
+
+.main{
+margin-right:280px;
+padding:25px;
+}
+
+/* HERO */
+
 .hero{
-height:100vh;
-position:relative;
+height:420px;
+border-radius:35px;
 overflow:hidden;
+position:relative;
+box-shadow:0 20px 60px rgba(0,0,0,.12);
 }
 
 .slide{
@@ -123,95 +177,106 @@ transform:scale(1);
 .overlay{
 position:absolute;
 inset:0;
-background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,.2));
+background:linear-gradient(to left,rgba(0,0,0,.7),rgba(0,0,0,.2));
 display:flex;
 flex-direction:column;
 justify-content:center;
-padding:7%;
+padding:60px;
+color:white;
 }
 
 .overlay h2{
-font-size:85px;
+font-size:65px;
+max-width:600px;
 font-weight:900;
-max-width:700px;
 line-height:1.2;
 }
 
 .overlay p{
-margin-top:20px;
-font-size:23px;
-max-width:600px;
-opacity:.9;
+margin-top:15px;
+font-size:20px;
+max-width:500px;
+line-height:1.8;
 }
 
 .overlay button{
-margin-top:30px;
-width:220px;
-height:65px;
+margin-top:25px;
+width:200px;
+height:60px;
 border:none;
-border-radius:20px;
-background:linear-gradient(45deg,#00d0ff,#7c3aed);
-font-size:20px;
-font-weight:700;
-color:white;
+border-radius:18px;
+background:white;
+font-size:18px;
+font-weight:800;
 cursor:pointer;
-box-shadow:0 10px 40px rgba(0,208,255,.4);
 }
+
+/* SECTION */
 
 .section-title{
-font-size:45px;
+font-size:38px;
 font-weight:900;
-margin:70px 5% 30px;
+margin:50px 0 25px;
 }
 
+/* CATEGORIES */
+
 .categories{
-display:flex;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
-padding:0 5%;
-overflow:auto;
 }
 
 .cat{
-min-width:260px;
-height:130px;
-border-radius:30px;
-background:linear-gradient(145deg,#00d0ff,#7c3aed);
+height:120px;
+border-radius:28px;
 display:flex;
-justify-content:center;
 align-items:center;
-font-size:28px;
-font-weight:800;
-cursor:pointer;
+justify-content:center;
+font-size:26px;
+font-weight:900;
+color:white;
+text-decoration:none;
+background:linear-gradient(135deg,#00bfff,#7c3aed);
 transition:.4s;
+box-shadow:0 15px 40px rgba(0,191,255,.25);
 }
 
 .cat:hover{
-transform:translateY(-10px) scale(1.03);
+transform:translateY(-10px);
 }
 
+/* STORES */
+
 .stores{
-padding:0 5% 80px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 gap:25px;
+padding-bottom:50px;
 }
 
 .store{
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(20px);
 border-radius:30px;
 overflow:hidden;
-backdrop-filter:blur(12px);
+text-decoration:none;
+color:inherit;
 transition:.4s;
+box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+body.dark .store{
+background:rgba(17,24,39,.8);
 }
 
 .store:hover{
-transform:translateY(-10px);
+transform:translateY(-12px);
 }
 
 .store img{
 width:100%;
-height:230px;
+height:220px;
 object-fit:cover;
 }
 
@@ -226,28 +291,53 @@ margin-bottom:10px;
 
 .info p{
 opacity:.7;
-line-height:1.7;
+line-height:1.8;
 }
 
-footer{
-padding:40px;
-text-align:center;
-background:#02030a;
-opacity:.7;
+/* MOBILE */
+
+.menu-btn{
+display:none;
 }
 
-@media(max-width:768px){
+@media(max-width:991px){
+
+.sidebar{
+right:-100%;
+}
+
+.sidebar.active{
+right:0;
+}
+
+.main{
+margin-right:0;
+}
+
+.menu-btn{
+display:flex;
+position:fixed;
+top:20px;
+right:20px;
+width:55px;
+height:55px;
+background:linear-gradient(45deg,#00bfff,#7c3aed);
+border:none;
+border-radius:18px;
+z-index:9999;
+color:white;
+font-size:24px;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+}
 
 .overlay h2{
-font-size:45px;
+font-size:42px;
 }
 
-.overlay p{
-font-size:17px;
-}
-
-.section-title{
-font-size:32px;
+.hero{
+height:320px;
 }
 
 }
@@ -270,9 +360,13 @@ font-size:32px;
 
 </div>
 
-<!-- NAVBAR -->
+<!-- MOBILE BUTTON -->
 
-<nav class="navbar">
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
 
 <div class="logo">
 
@@ -282,9 +376,23 @@ font-size:32px;
 
 </div>
 
-<button class="toggle" onclick="toggleMode()">☀️</button>
+<div class="side-title">الأقسام</div>
 
-</nav>
+<div class="side-links" id="sideCategories"></div>
+
+<div class="side-title" style="margin-top:30px;">المحلات</div>
+
+<div class="side-links" id="sideStores"></div>
+
+<button class="toggle" onclick="toggleMode()">
+🌙 / ☀️
+</button>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
 
 <!-- HERO -->
 
@@ -298,15 +406,15 @@ font-size:32px;
 
 <div class="overlay">
 
-<h2>اشتري أي حاجة من دكان</h2>
+<h2>دكان يخليك تشتري أي حاجة بسهولة</h2>
 
 <p>
 
-سوبر ماركت - ملابس - ديكورات - اكسسوارات - وكل اللي نفسك فيه
+كل المحلات والأقسام في مكان واحد بتصميم عصري رهيب
 
 </p>
 
-<button>ابدأ التسوق</button>
+<button>ابدأ الآن</button>
 
 </div>
 
@@ -324,11 +432,7 @@ font-size:32px;
 
 <div class="stores" id="stores"></div>
 
-<footer>
-
-DOKAN © 2026
-
-</footer>
+</div>
 
 <script>
 
@@ -338,13 +442,21 @@ setTimeout(()=>{
 
 document.getElementById("intro").style.display="none";
 
-},2000);
+},5000);
 
 /* DARK MODE */
 
 function toggleMode(){
 
-document.body.classList.toggle("light");
+document.body.classList.toggle("dark");
+
+}
+
+/* SIDEBAR */
+
+function toggleSidebar(){
+
+document.getElementById("sidebar").classList.toggle("active");
 
 }
 
@@ -366,53 +478,73 @@ slides[current].classList.add("active");
 
 /* GOOGLE SHEETS */
 
-const SHEET_ID = "1SPPwtrCVHbkzbHYYjYcRNC7SO85x69BU7f1evH1bD98";
+const SHEET_ID="1SPPwtrCVHbkzbHYYjYcRNC7SO85x69BU7f1evH1bD98";
 
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+const SHEET_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
 async function loadData(){
 
-const response = await fetch(SHEET_URL);
+const response=await fetch(SHEET_URL);
 
-const text = await response.text();
+const text=await response.text();
 
-const json = JSON.parse(text.substr(47).slice(0,-2));
+const json=JSON.parse(text.substr(47).slice(0,-2));
 
-const rows = json.table.rows;
+const rows=json.table.rows;
 
 document.getElementById("categories").innerHTML="";
 
 document.getElementById("stores").innerHTML="";
 
+document.getElementById("sideCategories").innerHTML="";
+
+document.getElementById("sideStores").innerHTML="";
+
 rows.forEach(row=>{
 
-const type = row.c[0]?.v || "";
+const type=row.c[0]?.v || "";
 
-const name = row.c[1]?.v || "";
+const name=row.c[1]?.v || "";
 
-const desc = row.c[2]?.v || "";
+const desc=row.c[2]?.v || "";
 
-const img = row.c[3]?.v || "";
+const img=row.c[3]?.v || "";
 
-if(type === "قسم"){
+const link=row.c[4]?.v || "#";
 
-document.getElementById("categories").innerHTML += `
+/* CATEGORY */
 
-<div class="cat">
+if(type==="قسم"){
+
+document.getElementById("categories").innerHTML+=`
+
+<a class="cat" href="${link}">
 
 ${name}
 
-</div>
+</a>
+
+`;
+
+document.getElementById("sideCategories").innerHTML+=`
+
+<a href="${link}">
+
+${name}
+
+</a>
 
 `;
 
 }
 
-if(type === "محل"){
+/* STORE */
 
-document.getElementById("stores").innerHTML += `
+if(type==="محل"){
 
-<div class="store">
+document.getElementById("stores").innerHTML+=`
+
+<a class="store" href="${link}" target="_blank">
 
 <img src="${img}">
 
@@ -424,7 +556,17 @@ document.getElementById("stores").innerHTML += `
 
 </div>
 
-</div>
+</a>
+
+`;
+
+document.getElementById("sideStores").innerHTML+=`
+
+<a href="${link}" target="_blank">
+
+${name}
+
+</a>
 
 `;
 
@@ -435,8 +577,6 @@ document.getElementById("stores").innerHTML += `
 }
 
 loadData();
-
-/* AUTO REFRESH */
 
 setInterval(loadData,5000);
 
