@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>دكان | DOKAN</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -87,16 +91,15 @@ background:linear-gradient(45deg,#00d0ff,#7c3aed);
 .toggle{
 width:55px;
 height:55px;
-border-radius:50%;
 border:none;
+border-radius:50%;
 background:linear-gradient(45deg,#00d0ff,#7c3aed);
-font-size:20px;
+font-size:22px;
 cursor:pointer;
 color:white;
 }
 
 .hero{
-width:100%;
 height:100vh;
 position:relative;
 overflow:hidden;
@@ -128,16 +131,16 @@ padding:7%;
 }
 
 .overlay h2{
-font-size:80px;
+font-size:85px;
+font-weight:900;
 max-width:700px;
 line-height:1.2;
-font-weight:900;
 }
 
 .overlay p{
 margin-top:20px;
-font-size:22px;
-max-width:550px;
+font-size:23px;
+max-width:600px;
 opacity:.9;
 }
 
@@ -150,8 +153,8 @@ border-radius:20px;
 background:linear-gradient(45deg,#00d0ff,#7c3aed);
 font-size:20px;
 font-weight:700;
-cursor:pointer;
 color:white;
+cursor:pointer;
 box-shadow:0 10px 40px rgba(0,208,255,.4);
 }
 
@@ -171,15 +174,15 @@ overflow:auto;
 .cat{
 min-width:260px;
 height:130px;
-border-radius:28px;
+border-radius:30px;
 background:linear-gradient(145deg,#00d0ff,#7c3aed);
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 font-size:28px;
 font-weight:800;
-transition:.4s;
 cursor:pointer;
+transition:.4s;
 }
 
 .cat:hover{
@@ -187,7 +190,7 @@ transform:translateY(-10px) scale(1.03);
 }
 
 .stores{
-padding:0 5% 70px;
+padding:0 5% 80px;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:25px;
@@ -198,7 +201,7 @@ background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.08);
 border-radius:30px;
 overflow:hidden;
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
 transition:.4s;
 }
 
@@ -250,25 +253,40 @@ font-size:32px;
 }
 
 </style>
+
 </head>
+
 <body>
 
+<!-- INTRO -->
+
 <div id="intro">
+
 <video autoplay muted playsinline>
+
 <source src="https://adelabdulrahman026-byte.github.io/DOKAN/Dokan_logo_animation_shopping_bags_202605150149.mp4">
+
 </video>
+
 </div>
+
+<!-- NAVBAR -->
 
 <nav class="navbar">
 
 <div class="logo">
+
 <img src="https://adelabdulrahman026-byte.github.io/DOKAN/ChatGPT%20Image%20May%2015,%202026,%2012_33_56%20AM.png">
+
 <h1>دكان</h1>
+
 </div>
 
 <button class="toggle" onclick="toggleMode()">☀️</button>
 
 </nav>
+
+<!-- HERO -->
 
 <section class="hero">
 
@@ -283,7 +301,9 @@ font-size:32px;
 <h2>اشتري أي حاجة من دكان</h2>
 
 <p>
-من السوبر ماركت للملابس والاكسسوارات والديكور وكل اللي نفسك فيه
+
+سوبر ماركت - ملابس - ديكورات - اكسسوارات - وكل اللي نفسك فيه
+
 </p>
 
 <button>ابدأ التسوق</button>
@@ -292,16 +312,22 @@ font-size:32px;
 
 </section>
 
+<!-- CATEGORIES -->
+
 <h2 class="section-title">الأقسام</h2>
 
 <div class="categories" id="categories"></div>
+
+<!-- STORES -->
 
 <h2 class="section-title">المحلات</h2>
 
 <div class="stores" id="stores"></div>
 
 <footer>
+
 DOKAN © 2026
+
 </footer>
 
 <script>
@@ -309,18 +335,23 @@ DOKAN © 2026
 /* INTRO */
 
 setTimeout(()=>{
+
 document.getElementById("intro").style.display="none";
+
 },2000);
 
 /* DARK MODE */
 
 function toggleMode(){
+
 document.body.classList.toggle("light");
+
 }
 
 /* SLIDER */
 
 let slides=document.querySelectorAll(".slide");
+
 let current=0;
 
 setInterval(()=>{
@@ -335,47 +366,61 @@ slides[current].classList.add("active");
 
 /* GOOGLE SHEETS */
 
-const SHEET_ID="1SPPwtrCVHbkzbHYYjYcRNC7SO85x69BU7f1evH1bD98";
+const SHEET_ID = "1SPPwtrCVHbkzbHYYjYcRNC7SO85x69BU7f1evH1bD98";
 
-const API_KEY="YOUR_GOOGLE_API_KEY";
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
 async function loadData(){
 
-const url=`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/الورقة1?key=${API_KEY}`;
+const response = await fetch(SHEET_URL);
 
-const res=await fetch(url);
+const text = await response.text();
 
-const data=await res.json();
+const json = JSON.parse(text.substr(47).slice(0,-2));
 
-const rows=data.values;
+const rows = json.table.rows;
 
-rows.shift();
+document.getElementById("categories").innerHTML="";
+
+document.getElementById("stores").innerHTML="";
 
 rows.forEach(row=>{
 
-const type=row[0];
+const type = row.c[0]?.v || "";
 
-if(type=="قسم"){
+const name = row.c[1]?.v || "";
 
-document.getElementById("categories").innerHTML+=`
-<div class="cat">${row[1]}</div>
+const desc = row.c[2]?.v || "";
+
+const img = row.c[3]?.v || "";
+
+if(type === "قسم"){
+
+document.getElementById("categories").innerHTML += `
+
+<div class="cat">
+
+${name}
+
+</div>
+
 `;
 
 }
 
-if(type=="محل"){
+if(type === "محل"){
 
-document.getElementById("stores").innerHTML+=`
+document.getElementById("stores").innerHTML += `
 
 <div class="store">
 
-<img src="${row[3]}">
+<img src="${img}">
 
 <div class="info">
 
-<h3>${row[1]}</h3>
+<h3>${name}</h3>
 
-<p>${row[2]}</p>
+<p>${desc}</p>
 
 </div>
 
@@ -391,7 +436,12 @@ document.getElementById("stores").innerHTML+=`
 
 loadData();
 
+/* AUTO REFRESH */
+
+setInterval(loadData,5000);
+
 </script>
 
 </body>
+
 </html>
