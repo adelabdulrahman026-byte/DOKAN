@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>لوحة التحكم | دكان</title>
+<title>لوحة تحكم دكان</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -19,58 +21,86 @@ font-family:'Cairo',sans-serif;
 }
 
 body{
-background:#050816;
-padding:40px;
+background:#070b17;
+padding:30px;
 color:white;
 }
 
-h1{
-font-size:45px;
+.title{
+font-size:50px;
+font-weight:900;
 margin-bottom:30px;
+background:linear-gradient(45deg,#00bfff,#7c3aed);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+gap:25px;
 }
 
 .box{
-background:#111827;
-padding:30px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+padding:25px;
 border-radius:30px;
-margin-bottom:30px;
 }
 
-input,select{
+.box h2{
+margin-bottom:20px;
+font-size:30px;
+}
 
+input{
 width:100%;
 height:60px;
-margin-top:15px;
 border:none;
+outline:none;
 border-radius:18px;
 padding:15px;
-font-size:18px;
-background:#1f2937;
+margin-bottom:15px;
+background:#111827;
 color:white;
-
+font-size:17px;
 }
 
 button{
-
 width:100%;
 height:60px;
-margin-top:20px;
 border:none;
 border-radius:18px;
-font-size:20px;
-font-weight:700;
-background:linear-gradient(45deg,#00d0ff,#7c3aed);
+background:linear-gradient(45deg,#00bfff,#7c3aed);
 color:white;
+font-size:20px;
+font-weight:800;
 cursor:pointer;
+transition:.3s;
+}
 
+button:hover{
+transform:scale(1.03);
+}
+
+.note{
+margin-top:30px;
+opacity:.7;
+line-height:2;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1>لوحة تحكم دكان</h1>
+<h1 class="title">لوحة تحكم دكان</h1>
+
+<div class="grid">
+
+<!-- CATEGORY -->
 
 <div class="box">
 
@@ -78,9 +108,17 @@ cursor:pointer;
 
 <input type="text" id="catName" placeholder="اسم القسم">
 
-<button onclick="addCategory()">إضافة القسم</button>
+<input type="text" id="catLink" placeholder="لينك القسم">
+
+<button onclick="addCategory()">
+
+إضافة القسم
+
+</button>
 
 </div>
+
+<!-- STORE -->
 
 <div class="box">
 
@@ -92,13 +130,30 @@ cursor:pointer;
 
 <input type="text" id="storeImg" placeholder="لينك صورة المحل">
 
-<button onclick="addStore()">إضافة المحل</button>
+<input type="text" id="storeLink" placeholder="لينك المحل">
+
+<button onclick="addStore()">
+
+إضافة المحل
+
+</button>
+
+</div>
+
+</div>
+
+<div class="note">
+
+✅ أي قسم أو محل هيتضاف تلقائي في الموقع  
+✅ التحديث مباشر كل 5 ثواني  
+✅ متوافق مع GitHub Pages  
+✅ تصميم حديث جدا 2026
 
 </div>
 
 <script>
 
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycby250bHqn-6vyqA6AT4OytbwYi_5MRmhq9ZEZ2f2TPTyG_zIVNY2g3aYuqrXCb6KBWW/exec";
+const SCRIPT_URL="حط لينك Google Script هنا";
 
 /* ADD CATEGORY */
 
@@ -106,15 +161,36 @@ async function addCategory(){
 
 let name=document.getElementById("catName").value;
 
+let link=document.getElementById("catLink").value;
+
+if(name==""){
+
+alert("اكتب اسم القسم");
+
+return;
+
+}
+
 await fetch(SCRIPT_URL,{
+
 method:"POST",
+
 body:JSON.stringify({
+
 type:"قسم",
-name:name
+
+name:name,
+
+link:link
+
 })
+
 });
 
 alert("تم إضافة القسم");
+
+document.getElementById("catName").value="";
+document.getElementById("catLink").value="";
 
 }
 
@@ -128,21 +204,47 @@ let desc=document.getElementById("storeDesc").value;
 
 let img=document.getElementById("storeImg").value;
 
+let link=document.getElementById("storeLink").value;
+
+if(name==""){
+
+alert("اكتب اسم المحل");
+
+return;
+
+}
+
 await fetch(SCRIPT_URL,{
+
 method:"POST",
+
 body:JSON.stringify({
+
 type:"محل",
+
 name:name,
+
 desc:desc,
-img:img
+
+img:img,
+
+link:link
+
 })
+
 });
 
 alert("تم إضافة المحل");
+
+document.getElementById("storeName").value="";
+document.getElementById("storeDesc").value="";
+document.getElementById("storeImg").value="";
+document.getElementById("storeLink").value="";
 
 }
 
 </script>
 
 </body>
+
 </html>
